@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+{% load static %}
+{% block nav %}
+
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa-solid fa-bars" style="color: #144368; font-size: 1.5rem;"></i>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto" style="margin-top: -7px !important;">
+
+        <li class="nav-link nav-item dropdown px-3">
+            <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                Project Management
+            </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% if request.user.is_superuser %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              <a class="dropdown-item" href="/Project_Management/approvallist">Approval</a>
+              {% elif request.user.userdetail.userrole == 2 or request.user.userdetail.userrole == 1 or request.user.userdetail.userrole == 5 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 3 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              
+
+              {% elif request.user.userdetail.userrole == 4 %}
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 6 %}
+                <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+                <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+                <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+                <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+                <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+                <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+                <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% endif %}
+                
+
+                
+            </div>
+        </li>
+        {% if request.user.is_superuser %}
+        <li class="nav-link nav-item px-3">
+            <a href="/Project_Management/Reviewdetail"
+                style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                See Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-link nav-item px-3">
+            <a href="/Project_Management/Reviewfun"
+                style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+            </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-link nav-item dropdown px-3">
+            <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                <i class="fa-solid fa-user"></i> {{ request.user }}
+            </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;">
+              <a class="dropdown-item" href="/accounts/detail/">My Profile</a>
+              <a class="dropdown-item" href="/accounts/logout/">Signout</a>
+              
+            </div>
+        </li>
+    </ul>
+    </nav>
+
+
+{% endblock %}
+
+
+{% block body %}
+<div class="container text-center">
+    <div class="col-md-12 text-center"> 
+        <table class="table table-bordered text-center">
+
+        <tr>
+            <td><b> Project Title</b></td>
+            <td>{{Doc.project_title}}</td>
+        </tr>
+        <tr>
+            <td><b>Client Name</b></td>
+            <td>
+                
+                {{Doc.client_Name}} 
+                
+            </td>
+        </tr>
+      
+        <tr>
+            <td><b>Creater</b></td>
+            <td>
+                {{Doc.creator}}
+                
+            </td>
+        </tr>
+        <tr>
+            <td><b>Vertical</b></td>
+            <td>
+                {{Doc.vertical}}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Manager</b></td>
+            <td>
+                {{Doc.manager}}
+            </td>
+        </tr>
+        <tr>
+            <td><b>CsOwner</b></td>
+            <td>
+                {{Doc.CsOwner}}
+            </td>
+        </tr>
+       
+        {% comment %} <tr>
+            <td><b>Assigned To</b></td>
+            <td>{{Doc.assignted_to}}</td>
+        </tr> {% endcomment %}
+        <tr>
+            <td><b>Priority</b></td>
+            
+             <td>{{Doc.get_priority_display}}</td>
+            
+        </tr>
+        <tr>
+            <td><b>Project Type</b></td>
+            
+             <td>{{Doc.get_project_type_display}}</td>
+            
+        </tr>
+        <tr>
+            <td><b>Start Date</b></td>
+            
+             <td>{{Doc.start_date}}</td>
+            
+        </tr>
+        <tr>
+            <td><b>End Date</b></td>
+            
+             <td>{{Doc.end_date}}</td>
+            
+        </tr>
+        <tr>
+            <td><b>Approval Status</b></td>
+            
+             <td>{{Doc.get_approval_status_display}}</td>
+            
+        </tr>
+        <tr>
+            <td><b>Project Status</b></td>
+            
+             <td>{{Doc.get_project_status_display}}</td>
+            
+        </tr>
+        
+        </table>
+        </div>
+
+
+
+   
+
+        
+   
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,191 @@
+
+{% extends 'base.html' %}  
+{% load static %}
+{% load widget_tweaks %}
+{% block nav %} 
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars" style="color: #144368; font-size: 1.5rem;"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto" style="margin-top: -7px !important;">
+
+            <li class="nav-link nav-item dropdown px-3">
+                <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                    Project Management
+                </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {% if request.user.is_superuser %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              <a class="dropdown-item" href="/Project_Management/approvallist">Approval</a>
+              {% elif request.user.userdetail.userrole == 2 or request.user.userdetail.userrole == 1 or request.user.userdetail.userrole == 5 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 3 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              
+
+              {% elif request.user.userdetail.userrole == 4 %}
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 6 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% endif %}
+                
+              </a>
+            </div>
+          </li>
+
+          {% if request.user.is_superuser %}
+          <li class="nav-link nav-item px-3">
+              <a href="/Project_Management/Reviewdetail"
+                  style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                  See Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+              </a>
+          </li>
+          {% else %}
+          <li class="nav-link nav-item px-3">
+              <a href="/Project_Management/Reviewfun"
+                  style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                  Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+              </a>
+          </li>
+          {% endif %}
+          <li class="nav-link nav-item dropdown px-3">
+            <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                <i class="fa-solid fa-user"></i> {{ request.user }}
+            </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;">
+              <a class="dropdown-item" href="/accounts/detail/">My Profile</a>
+              <a class="dropdown-item" href="/accounts/logout/">Signout</a>
+              
+            </div>
+        </li>
+    </ul>
+</nav>
+ {% endblock %}
+<!-- end of nav -->
+{% block body %}
+<section style="font-family: Chivo;">
+  <div class="container text-center" style="margin-top: -5rem;">
+    <h2><marquee behavior="" direction="right">Welcome {{ fname }}</marquee></h2>
+    <div class="row">
+      <div class="col-md-2 current py-2 mx-2 bg-light rounded" style="box-shadow:1px 2px 5px  #464746;">
+        <h4><b>Total Projects</b></h2>
+        <button class="btn rounded-circle bg-secondary text-light shadow-lg">{{pr}}</button>
+        <p class="lead">
+          <a class="btn btn-primary btn-sm mt-3 text-light" style="background-color: #144368;" href="/Project_Management/projectlist" role="button">Know more</a>
+        </p>
+      </div>
+      <div class="col-md-3 current py-2 mx-2 bg-light rounded" style="box-shadow:1px 2px 5px  #464746;">
+        <h4><b>Waiting For Approval</b></h2>
+        <button class="btn rounded-circle bg-secondary text-light shadow-lg">{{pro}}</button>
+        <p class="lead">
+          <a class="btn btn-sm mt-3 text-light" href="/Project_Management/pendingprojectlist/" style="background-color: #144368;" role="button">Know more</a>
+        </p>
+      </div>
+      <div class="col-md-3 current py-2 mx-2 bg-light rounded" style="box-shadow:1px 2px 5px  #464746;">
+        <h4><b>Completed Projects</b></h2>
+        <button class="btn rounded-circle bg-secondary text-light shadow-lg">{{com}}</button>
+        <p class="lead">
+          <a class="btn btn-primary btn-sm mt-3 text-light" style="background-color: #144368;" href="#" role="button">Know more</a>
+        </p>
+      </div>
+      <div class="col-md-3 current py-2 mx-2 bg-light rounded" style="box-shadow:1px 2px 5px  #464746;">
+        <h4><b>Number of Users</b></h2>
+        <button class="btn rounded-circle bg-secondary text-light shadow-lg">{{data}}</button>
+        <p class="lead">
+          <a class="btn btn-primary btn-sm mt-3 text-light" style="background-color: #144368;" href="#" role="button">Know more</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<br>
+      <!-- For Filter function -->
+
+
+        <form method="get">
+          <div class="well">
+            <div class="container">
+              <div class="row">
+                <div class="form-group col-sm-4 col-md-4">
+                  
+                  <label>Vertical</label>
+                  {% render_field filter.form.vertical class="form-control" %}
+                </div>
+                <div class="form-group col-sm-4 col-md-4">
+                  <label>Project Type</label>
+                  {% render_field filter.form.project_type class="form-control" %}
+                </div>
+                <div class="col-md-3 mt-auto mb-3">
+                  <button type="submit" class="btn text-light" style="background-color: #144368;">
+                    <span class="glyphicon glyphicon-search"></span> Filter <i class="fa-solid fa-filter"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+        <div class="container">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Project Title</th>
+                <th>Client Name</th>
+                <th>Approval Status</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in filter.qs %}
+                <tr>
+                  <td>{{ i.project_title }}</td>
+                  <td>{{ i.client_Name }}</td>
+                  <td>{{ i.get_approval_status_display }}</td>
+                  
+  
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="5">No data</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+
+      </section>
+        {% endblock %}
+

@@ -1,0 +1,4 @@
+<option value="">----------</option>
+{% for project in data %}
+<option value="{{project.assignted_to.id}}">{{project.assignted_to.first_name}}</option>
+{% endfor %}

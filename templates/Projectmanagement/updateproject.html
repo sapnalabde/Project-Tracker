@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Edit Project</title>
+{% endblock title %}
+
+{% load static %}
+
+
+
+
+{% block nav %}
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fa-solid fa-bars" style="color: #144368; font-size: 1.5rem;"></i>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto" style="margin-top: -7px !important;">
+
+        <li class="nav-link nav-item dropdown px-3">
+            <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                Project Management
+            </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if request.user.is_superuser %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              <a class="dropdown-item" href="/Project_Management/approvallist">Approval</a>
+              {% elif request.user.userdetail.userrole == 2 or request.user.userdetail.userrole == 1 or request.user.userdetail.userrole == 5 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 3 %}
+              <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+              <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+              <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% elif request.user.userdetail.userrole == 4 %}
+              <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+              <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+              <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              <a class="dropdown-item" href="">
+              {% elif request.user.userdetail.userrole == 6 %}
+                <a class="dropdown-item" href="/Project_Management/projectreg">Create Project</a>
+                <a class="dropdown-item" href="/Project_Management/projectlist">ProjectList</a>
+                <a class="dropdown-item" href="/Project_Management/teamreg">Assign Project</a>
+                <a class="dropdown-item" href="/Project_Management/teammembers">Team Allocation</a>
+                <a class="dropdown-item" href="/Project_Management/teamlist">TeamList</a>
+                <a class="dropdown-item" href="/Project_Management/taskreg">Create Task</a>
+                <a class="dropdown-item" href="/Project_Management/tasklist">TaskList</a>
+              {% endif %}
+                
+
+                
+            </div>
+        </li>
+        {% if request.user.is_superuser %}
+        <li class="nav-link nav-item px-3">
+            <a href="/Project_Management/Reviewdetail"
+                style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                See Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-link nav-item px-3">
+            <a href="/Project_Management/Reviewfun"
+                style="text-decoration: none; font-weight: 600; color: #144368; font-size: 18px;">
+                Feedback&nbsp;<i class="fa-solid fa-comments"></i>
+            </a>
+        </li>
+        {% endif %}
+
+        <li class="nav-link nav-item dropdown px-3">
+            <span class="btn p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                style="outline: none;font-weight: 600; color: #144368; font-size: 18px;">
+                <i class="fa-solid fa-user"></i> {{ request.user }}
+            </span>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="width: fit-content;">
+              <a class="dropdown-item" href="/accounts/detail/">My Profile</a>
+              <a class="dropdown-item" href="/accounts/logout/">Signout</a>
+              
+            </div>
+        </li>
+    </ul>
+    </nav>
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<form  method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    
+
+    <div class="container bg-light rounded py-4" style="margin-top: -9rem !important;">
+        <h1 style="color: #144368; font-family: Chivo; text-shadow: 2px 2px 1px #817f7f; font-weight: 700 !important;"
+            class="mt-2 text-center">Edit<i class="fa-solid fa-user-pen"></i> / Remark<i class="fa-solid fa-magnifying-glass"></i></h1>
+
+
+        <div class="row">
+            <div class="col-md-10">
+            </div>
+            <div class="col-md-2 text-right">
+                <a href="/homepage" style="color: #144368; font-size: 22px; "><i
+                        class="fa fa-home m-3"></i></a>
+            </div>
+            <div class="col-md-4 form-group" style="font-size: 1rem;">
+                <label for=" ">Project Title <span style="color: red;">*</span></label>{{form.project_title}}
+            </div>
+            <div class="col-md-4 form-group" style="font-size: 1rem;">
+                <label for=" ">Manager <span style="color: red;">*</span></label>{{form.manager}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Client Name <span style="color: red;">*</span></label>{{form.client_Name}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Creator <span style="color: red;">*</span></label>{{form.creator}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Vertical <span style="color: red;">*</span></label>{{form.vertical}}
+            </div>
+            {% comment %} <div class="col-md-4 form-group">
+                <label for=" ">Assigned to <span style="color: red;">*</span></label>{{form.assignted_to}}
+            </div> {% endcomment %}
+            <div class="col-md-4 form-group" style="font-size: 1rem;">
+                <label for=" ">Priority <span style="color: red;">*</span></label>{{form.priority}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Cs Owner <span style="color: red;">*</span></label>{{form.CsOwner}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Project Type <span style="color: red;">*</span></label>{{form.project_type}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Start Date <span style="color: red;">*</span></label>{{form.start_date}}
+            </div>
+            <div class="col-md-4 form-group" style="font-size: 1rem;">
+                <label for=" ">End Date <span style="color: red;">*</span></label>{{form.end_date}}
+            </div>
+            <div class="col-md-4 form-group">
+                <label for=" ">Project Status <span style="color: red;">*</span></label>{{form.project_status}}
+            </div>
+            {% if request.user.is_superuser %}
+            <div class="col-md-4 form-group">
+                <label for=" " class="bg-secondary px-3 rounded text-light">Approval Status <span style="color: red;">**</span></label>{{form.approval_status}}
+            </div>
+            {% endif %}
+            
+            <div class="col-md-8">                                                
+                <div class="form-group">
+                    <label for="Attachment" class="col-sm-3 control-label"> Attachment</label>
+                    {{form.attachment}}
+                    <p class="btn-block btn-light shadow-sm text-center">Old File : <a href="{{file_url}}" target="_blank">{{file_url}}</a></p>
+                </div>
+                          
+                          
+            </div>
+            <div class="col-md-12 form-group" style="font-size: 1rem;">
+                <label for=" ">Project Brief</label>{{form.description}}
+            </div>
+            {% if request.user.is_superuser %}
+            
+            <div class="col-md-12 form-group">
+                <label for=" ">Remark</label>{{form.remark}}
+            </div>
+            {% endif %}
+            
+            {% if request.user.userdetail.userrole == 6 %}
+                <div class="col-md-4"></div>
+                <div class="col-md-4 text-center">
+                    <button type="button" class="btn text-light btn-sm" data-toggle="modal"style="background-color: #144368;" data-target="#exampleModal">
+                        Submit
+                      </button>
+                      
+                </div>
+                {% else %}
+                <div class="col-md-4"></div>
+                <div class="col-md-2 text-right">
+                    <input type="submit" value="Submit" class="btn btn-sm text-white"
+                        style="background-color: #144368; font-size: 1rem;">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-sm text-white" style="background-color: #144368; font-size: 01rem;"
+                        type="button">See ProjectList</button>
+                </div>
+                {% endif %}
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    
+
+</form>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          You are not authorized to submit
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

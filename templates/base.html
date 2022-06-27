@@ -1,0 +1,181 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.27.1/slimselect.min.css" rel="stylesheet"></link> -->
+    <!-- <link rel="stylesheet" type="text/css" href="selectize.css" /> -->
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href= "{% static 'css/style.css' %}">
+    
+    <!-- ANIMATE css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+    
+
+    {% block title %}
+    {% endblock %}
+
+    {% block css %}
+    {% endblock %}
+    <style>
+        /* Style buttons */
+        
+        .bt {
+                background-color: #144368; /* Blue background */
+                border-radius: 20%; /* Remove borders */
+                color: white; /* White text */
+                padding: 12px 16px; /* Some padding */
+                font-size: 16px; /* Set a font size */
+                cursor: pointer; /* Mouse pointer on hover */
+                position : absolute;
+                top: 70px;
+                right: 70px;
+               
+                }
+  
+            /* Darker background on mouse-over */
+            .bt:hover {
+                background-color: #144368;
+                }
+        
+        
+        body::after {
+            content: '';
+            display: block;
+            height: 50px;
+            /* Set same as footer's height */
+        }
+
+        footer {
+            width: 100%;
+            height: 50px;
+            padding: 15px 0;
+            background-color: #191919;
+            text-align: center;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 400;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        /* .dropdown-x {
+            position: relative;
+            display: inline-block;
+          }
+      
+          /* Dropdown Content (Hidden by Default) */
+          /* .dropdown-content-x {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            width: auto;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+          } */ 
+      
+    </style>
+</head>
+
+<body>
+    
+    <div class=" sticky-top">
+      <img src="{% static 'img/bg.jpg' %}"  height="80px" style="width: 100vw;" alt="logo">
+      <a href="/mainpage/" class="navbar-brand"><img src="{% static 'img/logo_new.jpg' %}" height="80px" alt="logo" ></a>
+      <nav class="navbar navbar-expand-lg">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" style="z-index: 10;" id="navbarNavDropdown">
+          {% block nav %}
+          
+    
+          {% endblock %}
+        </div>
+      </nav>
+    </div>
+    
+   
+    
+    <!-- <nav class="nav navbar bg-light">
+        <ul class="right-nav">
+
+            <li class="nav-link">
+                <a href="" style="text-decoration: none; color: #fff;">
+                    Signup
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="/accounts/login/" style="text-decoration: none; color: #fff;">
+                    Signin
+                </a>
+            </li>
+        </ul>
+    </nav> -->
+    {% block body %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5">
+          <img src="{% static 'img/solutions1.png' %}" class="img-fluid animate__animated animate__slower  animate__backInLeft" alt="img">
+        </div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-6 text-center">
+          <p class="display-4" style="font-weight: 600; text-shadow: 1px 2px 3px #3f3c3c; font-family: Chivo;">PROJECT TRACKER</p>
+          <h3>Technology Solutions, Advisory, & Managed Services for you</h3>
+          <p>Strategy  |  Cloud  |   Automation  |  Security  |  Analytics  |  AI</p>
+          <button class="btn btn-dark"><a href="/accounts/login/" style="text-decoration: none; color: #f6f6f6;">LogIn&nbsp;</a><i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+          <hr>
+          <p class="text-muted">Don't have an account yet? <i><a href="/accounts/signup/">Click Here </a></i>to create.</p>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+    
+    <footer class="fixed-bottom">
+        Copyright ©
+        <script>document.write(new Date().getFullYear())</script> Cloudstrats - All rights reserved
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        
+    {% block script %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>
